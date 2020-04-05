@@ -12,21 +12,17 @@ class CreateUserActivityTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_activity', function (Blueprint $table) {
-            $table->increments('id');
-            $table->text('description');
-            $table->unsignedInteger('user_id');
+        Schema::create('users_activity', function (Blueprint $table) {
+            $table->increments('ref_activ');
+            $table->text('activ_desc');
             $table->string('ip_address', 45);
+            $table->string('mac_address', 70)->nullable();
             $table->text('user_agent');
-            $table->timestamp('created_at');
+            $table->timestamp('activ_date');
+            $table->unsignedInteger('ref_user');
         });
 
-        Schema::table('user_activity', function (Blueprint $table) {
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
-        });
+
     }
 
     /**
@@ -37,12 +33,12 @@ class CreateUserActivityTable extends Migration
     public function down()
     {
         if (DB::getDriverName() != 'sqlite') {
-            Schema::table('user_activity', function (Blueprint $table) {
+            Schema::table('users_activity', function (Blueprint $table) {
                 $table->dropForeign('user_activity_user_id_foreign');
             });
         }
 
-        Schema::drop('user_activity');
+        Schema::drop('users_activity');
 
         \DB::table('permissions')->where('name', 'users.activity')->delete();
     }

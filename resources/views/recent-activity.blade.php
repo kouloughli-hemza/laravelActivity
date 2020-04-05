@@ -1,5 +1,5 @@
-<div class="card">
-    <h6 class="card-header d-flex align-items-center justify-content-between">
+<div class="card mg-b-10">
+    <h6 class="card-header pd-t-20 d-sm-flex align-items-start justify-content-between bd-b-0 pd-b-0">
         @lang('Latest Activity')
 
         @if (count($activities))
@@ -15,9 +15,9 @@
         @endif
     </h6>
 
-    <div class="card-body">
+    <div class="card-body pd-y-30">
         @if (count($activities))
-            <table class="table table-borderless table-striped">
+            <table class="table table-dashboard mg-b-0">
                 <thead>
                 <tr>
                     <th>@lang('Action')</th>
@@ -27,8 +27,8 @@
                 <tbody>
                 @foreach($activities as $activity)
                     <tr>
-                        <td>{{ $activity->description }}</td>
-                        <td>{{ $activity->created_at->format(config('app.date_time_format')) }}</td>
+                        <td>{{ $activity->activ_desc }}</td>
+                        <td>{{ $activity->activ_date->format(config('app.date_time_format')) }}</td>
                     </tr>
                 @endforeach
                 </tbody>

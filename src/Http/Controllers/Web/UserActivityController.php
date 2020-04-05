@@ -38,7 +38,7 @@ class UserActivityController extends Controller
     public function index(User $user, Request $request)
     {
         $activities = $this->activities->paginateActivitiesForUser(
-            $user->id,
+            $user->ref_user,
             $perPage = 20,
             $request->search
         );
@@ -61,7 +61,7 @@ class UserActivityController extends Controller
         $user = auth()->user();
 
         $activities = $this->activities->paginateActivitiesForUser(
-            $user->id,
+            $user->ref_user,
             $perPage = 20,
             $request->get('search')
         );

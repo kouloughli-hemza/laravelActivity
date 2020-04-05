@@ -2,13 +2,12 @@
 
 namespace Kouloughli\UserActivity\Listeners;
 
-use Kouloughli\Events\Role\Created;
-use Kouloughli\Events\Role\PermissionsUpdated;
-use Kouloughli\Events\Role\Updated;
-use Kouloughli\Events\Role\Deleted;
+use Kouloughli\Events\File\Created;
+use Kouloughli\Events\File\Deleted;
+use Kouloughli\Events\File\Updated;
 use Kouloughli\UserActivity\Logger;
 
-class RoleEventsSubscriber
+class FileEventsSubscriber
 {
     /**
      * @var Logger
@@ -23,8 +22,8 @@ class RoleEventsSubscriber
     public function onCreate(Created $event)
     {
         $message = trans(
-            'user-activity::log.new_role',
-            ['name' => $event->getRole()->role_display]
+            'user-activity::log.new_File',
+            ['name' => $event->getFile()->file_name]
         );
 
         $this->logger->log($message);
@@ -33,8 +32,8 @@ class RoleEventsSubscriber
     public function onUpdate(Updated $event)
     {
         $message = trans(
-            'user-activity::log.updated_role',
-            ['name' => $event->getRole()->role_display]
+            'user-activity::log.updated_File',
+            ['name' => $event->getFile()->file_name]
         );
 
         $this->logger->log($message);
@@ -43,17 +42,14 @@ class RoleEventsSubscriber
     public function onDelete(Deleted $event)
     {
         $message = trans(
-            'user-activity::log.deleted_role',
-            ['name' => $event->getRole()->role_display]
+            'user-activity::log.deleted_File',
+            ['name' => $event->getFile()->file_name]
         );
 
         $this->logger->log($message);
     }
 
-    public function onPermissionsUpdate(PermissionsUpdated $event)
-    {
-        $this->logger->log(trans('user-activity::log.updated_role_permissions'));
-    }
+
 
     /**
      * Register the listeners for the subscriber.
@@ -67,6 +63,5 @@ class RoleEventsSubscriber
         $events->listen(Created::class, "{$class}@onCreate");
         $events->listen(Updated::class, "{$class}@onUpdate");
         $events->listen(Deleted::class, "{$class}@onDelete");
-        $events->listen(PermissionsUpdated::class, "{$class}@onPermissionsUpdate");
     }
 }

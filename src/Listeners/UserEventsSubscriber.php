@@ -152,7 +152,7 @@ class UserEventsSubscriber
         $this->logger->setUser($event->impersonator);
 
         $message = trans('user-activity::log.started_impersonating', [
-            'id' => $event->impersonated->id,
+            'id' => $event->impersonated->ref_user,
             'name' => $event->impersonated->present()->name
         ]);
 
@@ -164,7 +164,7 @@ class UserEventsSubscriber
         $this->logger->setUser($event->impersonator);
 
         $message = trans('user-activity::log.stopped_impersonating', [
-            'id' => $event->impersonated->id,
+            'id' => $event->impersonated->ref_user,
             'name' => $event->impersonated->present()->name
         ]);
 

@@ -10,6 +10,14 @@ return [
     'deleted_role' => 'Deleted role named :name.',
     'updated_role_permissions' => 'Updated role permissions.',
 
+    'new_direction' => 'Créé une nouvelle direction :name.',
+    'updated_direction' => 'Mis à jour une direction :name.',
+    'deleted_direction' => 'Supprimé une direction :name.',
+
+    'new_File' => 'Ajouté un nouveau document :name',
+    'updated_File' => 'Mis à jour un document :name',
+    'deleted_File' => 'Supprimé un document :name',
+
     'logged_in' => 'Logged in.',
     'logged_out' => 'Logged out.',
     'created_account' => 'Created an account.',

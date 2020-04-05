@@ -9,12 +9,15 @@ class Activity extends Model
 {
     const UPDATED_AT = null;
 
-    protected $table = 'user_activity';
+    const CREATED_AT = 'activ_date';
 
-    protected $fillable = ['description', 'user_id', 'ip_address', 'user_agent'];
+    protected $table = 'users_activity';
+    protected $primaryKey = 'ref_activ';
+
+    protected $fillable = ['activ_desc', 'ref_user', 'ip_address','mac_address', 'user_agent','activ_date'];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'ref_user');
     }
 }

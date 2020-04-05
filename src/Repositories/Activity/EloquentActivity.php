@@ -21,7 +21,7 @@ class EloquentActivity implements ActivityRepository
      */
     public function paginateActivitiesForUser($userId, $perPage = 20, $search = null)
     {
-        $query = Activity::where('user_id', $userId);
+        $query = Activity::where('ref_user', $userId);
 
         return $this->paginateAndFilterResults($perPage, $search, $query);
     }
@@ -31,8 +31,8 @@ class EloquentActivity implements ActivityRepository
      */
     public function getLatestActivitiesForUser($userId, $activitiesCount = 10)
     {
-        return Activity::where('user_id', $userId)
-            ->orderBy('created_at', 'DESC')
+        return Activity::where('ref_user', $userId)
+            ->orderBy('activ_date', 'DESC')
             ->limit($activitiesCount)
             ->get();
     }
@@ -56,10 +56,10 @@ class EloquentActivity implements ActivityRepository
     private function paginateAndFilterResults($perPage, $search, $query)
     {
         if ($search) {
-            $query->where('description', 'LIKE', "%$search%");
+            $query->where('activ_desc', 'LIKE', "%$search%");
         }
 
-        $result = $query->orderBy('created_at', 'DESC')
+        $result = $query->orderBy('activ_date', 'DESC')
             ->paginate($perPage);
 
         if ($search) {
@@ -75,11 +75,11 @@ class EloquentActivity implements ActivityRepository
     public function userActivityForPeriod($userId, Carbon $from, Carbon $to)
     {
         $result = Activity::select([
-            DB::raw("DATE(created_at) as day"),
+            DB::raw("DATE(activ_date) as day"),
             DB::raw('count(id) as count')
         ])
-            ->where('user_id', $userId)
-            ->whereBetween('created_at', [$from, $to])
+            ->where('ref_user', $userId)
+            ->whereBetween('activ_date', [$from, $to])
             ->groupBy('day')
             ->orderBy('day', 'ASC')
             ->pluck('count', 'day');

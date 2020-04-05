@@ -43,8 +43,8 @@ class Logger
     public function log($description)
     {
         return $this->activities->log([
-            'description' => $description,
-            'user_id' => $this->getUserId(),
+            'activ_desc' => $description,
+            'ref_user' => $this->getUserId(),
             'ip_address' => $this->request->ip(),
             'user_agent' => $this->getUserAgent()
         ]);
@@ -60,7 +60,7 @@ class Logger
     private function getUserId()
     {
         if ($this->user) {
-            return $this->user->id;
+            return $this->user->ref_user;
         }
 
         return $this->auth->guard()->id();

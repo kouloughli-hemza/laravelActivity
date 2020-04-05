@@ -3,6 +3,8 @@
 namespace Kouloughli\UserActivity;
 
 use Event;
+use Kouloughli\UserActivity\Listeners\DirectionEventsSubscriber;
+use Kouloughli\UserActivity\Listeners\FileEventsSubscriber;
 use Route;
 use Kouloughli\Plugins\Plugin;
 use Kouloughli\Support\Sidebar\Item;
@@ -24,7 +26,7 @@ class UserActivity extends Plugin
     {
         return Item::create(__('Activity Log'))
             ->route('activity.index')
-            ->icon('fas fa-server')
+            ->icon('shuffle')
             ->active("activity*")
             ->permissions('users.activity');
     }
@@ -105,6 +107,8 @@ class UserActivity extends Plugin
         Event::subscribe(PermissionEventsSubscriber::class);
         Event::subscribe(RoleEventsSubscriber::class);
         Event::subscribe(UserEventsSubscriber::class);
+        Event::subscribe(DirectionEventsSubscriber::class);
+        Event::subscribe(FileEventsSubscriber::class);
     }
 
     /**

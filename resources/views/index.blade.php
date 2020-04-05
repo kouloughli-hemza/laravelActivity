@@ -4,24 +4,26 @@
 @section('page-heading', isset($user) ? $user->present()->nameOrEmail : __('Activity Log'))
 
 @section('breadcrumbs')
-    @if (isset($user) && isset($adminView))
-        <li class="breadcrumb-item">
-            <a href="{{ route('activity.index') }}">@lang('Activity Log')</a>
-        </li>
-        <li class="breadcrumb-item active">
-            {{ $user->present()->nameOrEmail }}
-        </li>
-    @else
-        <li class="breadcrumb-item active">
-            @lang('Activity Log')
-        </li>
-    @endif
+    <div class="d-sm-flex align-items-center justify-content-between mg-b-20 mg-lg-b-25 mg-xl-b-30">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb breadcrumb-style1 mg-b-10">
+                    @if (isset($user) && isset($adminView))
+                        <li class="breadcrumb-item"><a href="{{ url('/') }}">@lang('Dashboard')</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('activity.index') }}">@lang('Activity Log')</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $user->present()->nameOrEmail }}</li>
+                    @else
+                        <li class="breadcrumb-item active" aria-current="page">@lang('Activity Log')</li>
+                    @endif
+                </ol>
+            </nav>
+        </div>
+    </div>
 @stop
 
 @section('content')
-
-    <div class="card">
-    <div class="card-body">
+    <div class="card mg-b-10">
+    <div class="card-body pd-y-30">
         <form action="" method="GET" id="users-form" class="border-bottom-light mb-3">
             <div class="row justify-content-between mt-3 mb-4">
                 <div class="col-lg-5 col-md-6">
@@ -50,10 +52,10 @@
         </form>
 
         <div class="table-responsive">
-            <table class="table table-borderless table-striped">
+            <table class="table table-dashboard mg-b-0">
                 <thead>
                     @if (isset($adminView))
-                        <th class="min-width-150">@lang('User')</th>
+                        <th class="min-width-150">@lang('user')</th>
                     @endif
                     <th>@lang('IP Address')</th>
                     <th class="min-width-200">@lang('Message')</th>
@@ -68,7 +70,7 @@
                                     @if (isset($user))
                                         {{ $activity->user->present()->nameOrEmail }}
                                     @else
-                                        <a href="{{ route('activity.user', $activity->user_id) }}"
+                                        <a href="{{ route('activity.user', $activity->ref_user) }}"
                                            data-toggle="tooltip" title="@lang('View Activity Log')">
                                             {{ $activity->user->present()->nameOrEmail }}
                                         </a>
@@ -76,8 +78,8 @@
                                 </td>
                             @endif
                             <td>{{ $activity->ip_address }}</td>
-                            <td>{{ $activity->description }}</td>
-                            <td>{{ $activity->created_at->format(config('app.date_time_format')) }}</td>
+                            <td>{{ $activity->activ_desc }}</td>
+                            <td>{{ $activity->activ_date->format(config('app.date_time_format')) }}</td>
                             <td class="text-center">
                                 <a tabindex="0" role="button" class="btn btn-icon"
                                    data-trigger="focus"

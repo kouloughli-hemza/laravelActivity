@@ -23,7 +23,7 @@ class PermissionEventsSubscriber
     {
         $permission = $event->getPermission();
 
-        $name = $permission->display_name ?: $permission->name;
+        $name = $permission->perm_display ?: $permission->perm_name;
         $message = trans('user-activity::log.new_permission', ['name' => $name]);
 
         $this->logger->log($message);
@@ -33,7 +33,7 @@ class PermissionEventsSubscriber
     {
         $permission = $event->getPermission();
 
-        $name = $permission->display_name ?: $permission->name;
+        $name = $permission->perm_display ?: $permission->perm_name;
         $message = trans('user-activity::log.updated_permission', ['name' => $name]);
 
         $this->logger->log($message);
@@ -43,7 +43,7 @@ class PermissionEventsSubscriber
     {
         $permission = $event->getPermission();
 
-        $name = $permission->display_name ?: $permission->name;
+        $name = $permission->perm_display ?: $permission->perm_name;
         $message = trans('user-activity::log.deleted_permission', ['name' => $name]);
 
         $this->logger->log($message);

@@ -13,12 +13,12 @@ class ActivityPermissionsSeeder extends Seeder
      */
     public function run()
     {
-        $adminRole = Role::where('name', 'Admin')->first();
+        $adminRole = Role::where('role_name', 'Admin')->first();
 
         $permission = Permission::create([
             'name' => 'users.activity',
-            'display_name' => 'View System Activity Log',
-            'description' => 'View activity log for all system users.',
+            'display_name' => 'Afficher le journal d\'activité du système',
+            'description' => 'Afficher le journal d\'activité de tous les utilisateurs du système.',
             'removable' => false
         ]);
 
