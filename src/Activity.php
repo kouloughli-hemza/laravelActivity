@@ -17,6 +17,6 @@ class Activity extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'ref_user');
+        return $this->belongsTo(User::class);
     }
 }
